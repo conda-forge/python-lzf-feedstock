@@ -10,20 +10,19 @@ source:
   sha256: 47db5c2cb371bdc45f61cca3e12154ca5a7a7fbb8e1a3af8e5c62d14129da1d0
 
 build:
-  noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   build:
     - {{ compiler("c") }}
     - {{ stdlib("c") }}
   host:
-    - python >=3.7
+    - python
     - pip
     - setuptools 
   run:
-    - python >=3.7
+    - python
 
 test:
   imports:
