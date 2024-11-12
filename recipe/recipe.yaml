@@ -1,0 +1,49 @@
+context:
+  name: python-lzf
+  version: 0.2.6
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/python_lzf-${{ version }}.tar.gz
+  sha256: 47db5c2cb371bdc45f61cca3e12154ca5a7a7fbb8e1a3af8e5c62d14129da1d0
+
+build:
+  number: 4
+  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  build:
+    - ${{ compiler("c") }}
+    - ${{ stdlib("c") }}
+  host:
+    - python
+    - pip
+    - setuptools
+  run:
+    - python
+
+tests:
+  - python:
+      imports:
+        - lzf
+      pip_check: false
+  - files:
+      recipe:
+        - tests.py
+      source:
+        - lzf_module.c
+    script:
+      - python tests.py
+
+about:
+  summary: C Extension for liblzf
+  license: BSD-3-Clause
+  license_file: LICENSE
+  homepage: http://github.com/teepark/python-lzf
+
+extra:
+  recipe-maintainers:
+    - tetov
