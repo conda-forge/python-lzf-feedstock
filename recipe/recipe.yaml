@@ -19,7 +19,6 @@ requirements:
     - ${{ compiler("c") }}
     - ${{ stdlib("c") }}
   host:
-    - lzf
     - python
     - pip
     - setuptools
